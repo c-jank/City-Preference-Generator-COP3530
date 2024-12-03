@@ -1,15 +1,37 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <map>
+#include <queue>
 #include <string>
-
-using namespace std;
-
 #include "Bridges.h"
 #include "DataSource.h"
 #include "data_src/City.h"
-
+using namespace std;
 using namespace bridges;
 
-// this program illustrates how to access the data of the US and World 
-//	city data
+
+struct City {
+	string name;
+	string state;
+	int population;
+	double latitude;
+	double longitude;
+	double altitude;
+};
+
+
+class userPreferences {
+	int minPopulation;
+	int maxPopulation;
+	double latitude;
+	double longitude;
+	double altitude;
+
+	userPreferences(int min, int max, double lat, double lon, double alt) : minPopulation(min), maxPopulation(max), latitude(lat), longitude(lon),  altitude(alt) {}
+};
+
+
 int main(int argc, char **argv) {
 
 	// create bridges object
