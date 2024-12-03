@@ -7,77 +7,92 @@
 #include "Bridges.h"
 #include "DataSource.h"
 #include "data_src/City.h"
+#include <cmath>
+
+#include "maxHeap.h"
 using namespace std;
 using namespace bridges;
 
 
-struct City {
-	string name;
-	string state;
-	int population;
-	double latitude;
-	double longitude;
-	double altitude;
-};
-
-
-class userPreferences {
+// User Preferences structure
+struct userPreferences {
 	int minPopulation;
 	int maxPopulation;
-	double latitude;
-	double longitude;
-	double altitude;
+	int minAlt;
+	int maxAlt;
+	string preferredState;
+	int resultCount;
+	int popRank;
+	int altRank;
+	int stateRank;
 
-	userPreferences(int min, int max, double lat, double lon, double alt) : minPopulation(min), maxPopulation(max), latitude(lat), longitude(lon),  altitude(alt) {}
+	userPreferences(int minP, int maxP, int minA, int maxA, string state, int results, int popR, int altR, int stateR) : minPopulation(minP), maxPopulation(maxP), minAlt(minA), maxAlt(maxA), preferredState(state), resultCount(results), popRank(popR), altRank(altR), stateRank(stateR) {}
 };
+
+
+// function to calculate a city's "score" based on the user's preferences and priority rankings
+double calcScore(const cityData& city, const string& state, int minPop, int maxPop, int minAlt, int maxAlt, int popR, int altR, int stateR) {
+
+	double score = 0;
+
+	double popWeight = static_cast<double>(city.population - minPop) / (maxPop - minPop);
+	score += popWeight * popR;
+
+	double altWeight = static_cast<double>(city.altitude - minAlt) / (maxAlt - minAlt);
+	score += altWeight * altR;
+
+	if (city.state == state) {
+		score += stateR;
+	}
+
+	return score;
+}
 
 
 int main(int argc, char **argv) {
 
 	// create bridges object
-	Bridges bridges (2, "c-jankk", "199217990495");
-
-
-	// set title
-	bridges.setTitle("Accessing US City data");
-
+	Bridges bridges (3, "c-jankk", "199217990495");
+	bridges.setTitle("City Preference Generator");
 	DataSource ds (&bridges);
 
-	cout << "Retrieving a set of US cities" << endl;
+	// create preferences object with inputted user preferences (just example preferences until we incorporate the UI)
+	userPreferences preferences(100000, 1000000, 100, 400, "IL", 25, 5, 4, 3);
 
-	// Parameters to the query are through an unordered map
-	// you may use any subset of parameters to filter the US city data
-	// results will be filtered to satisfy all specified parameters
-	// for example if you provide population ane elevation ranges, then only those
-	// cities matching those ranges will be retrieved
-
-	// Parameters include
-	// population range - specify  min and max population values
-	// elevation range - specify  min and max elevation values - note elevation can be
-	//   				negative (below sealevel!
-	// Lat/Long bounding box -- specified by minLatLong, maxLatLong pairs of values
-	// state  - state name -- cities within that state will be retrieved
-	// city   - city name  -- if it matches, it will be retrieved
-	// limit  - limit the output to a specified number of cities
-
-
-	// return upto 10 cities in the North Carolina, using the 
-	// population, and limit parametes
-
+	// set the city params to search for cities inside the min/max populations and elevations
 	unordered_map<string, string> city_params {
-			{"min_pop","200000"},
-			{"max_pop","1000000"},
-			{"state", "NC"},
-			{"limit", "25"}
-		};
+		{"min_pop", to_string(preferences.minPopulation)},
+		{"max_pop", to_string(preferences.maxPopulation)},
+		{"min_elev", to_string(preferences.minAlt)},
+		{"max_elev", to_string(preferences.maxAlt)},
+		{"limit", to_string(preferences.resultCount)}
+	};
 
-	vector<City>  us_cities = ds.getUSCities(city_params);
-	cout << "US Cities (tested for limit of 25 cities, population over 200K, and lat/long Bounding Box: (34.025348,-85.352783), (36.800488,-75.300293):\n";
-	for (auto c : us_cities)
-		cout << "\n" << c.getCity() << "," << c.getState() << ":" <<
-			" Population: " <<  c.getPopulation()  <<
-			", Elevation: "  <<  c.getElevation()
-			<< ", Lat/Long: " << c.getLatitude() << "," << c.getLongitude();
+	// search for cities and add them to the cities vector
+	vector<City> cities = ds.getUSCities(city_params);
+
+	// for each city, create a city object and add it to a new vector of city objects
+	vector<cityData> cityObjects;
+	for (auto c : cities) {
+		cityObjects.push_back(cityData(c.getCity(), c.getState(), c.getPopulation(), c.getElevation()));
+	}
+
+	// create heap
+	maxHeap heap;
+
+	// for each city object in the cityObjects vector, calculate the city's score and add the city to the heap
+	for (cityData& c : cityObjects) {
+		c.score = calcScore(c, preferences.preferredState, preferences.minPopulation, preferences.maxPopulation, preferences.minAlt, preferences.maxAlt, preferences.popRank, preferences.altRank, preferences.stateRank);
+		heap.insert(c);
+	}
+
+	// print the cities in order using the pop function
+	cout << "cities ranked by priority: " << endl;
+	while (!heap.empty()) {
+		cityData top = heap.pop();
+		cout << top.name << ' ' << top.state << ' ' << top.population << " " << top.score << endl;
+	}
+
 
 	return 0;
 }
