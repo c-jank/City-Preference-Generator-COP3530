@@ -50,7 +50,6 @@ double calcScore(const cityData& city, const string& state, int minPop, int maxP
 
 
 int main(int argc, char **argv) {
-
 	// create bridges object
 	Bridges bridges (3, "c-jankk", "199217990495");
 	bridges.setTitle("City Preference Generator");
@@ -61,11 +60,11 @@ int main(int argc, char **argv) {
 
 	// set the city params to search for cities inside the min/max populations and elevations
 	unordered_map<string, string> city_params {
-		{"min_pop", to_string(preferences.minPopulation)},
-		{"max_pop", to_string(preferences.maxPopulation)},
-		{"min_elev", to_string(preferences.minAlt)},
-		{"max_elev", to_string(preferences.maxAlt)},
-		{"limit", to_string(preferences.resultCount)}
+			{"min_pop", to_string(preferences.minPopulation)},
+			{"max_pop", to_string(preferences.maxPopulation)},
+			{"min_elev", to_string(preferences.minAlt)},
+			{"max_elev", to_string(preferences.maxAlt)},
+			{"limit", "1000"}
 	};
 
 	// search for cities and add them to the cities vector
@@ -88,9 +87,11 @@ int main(int argc, char **argv) {
 
 	// print the cities in order using the pop function
 	cout << "cities ranked by priority: " << endl;
-	while (!heap.empty()) {
+	int count = preferences.resultCount;
+	while (!heap.empty() && count > 0) {
 		cityData top = heap.pop();
 		cout << top.name << ' ' << top.state << ' ' << top.population << " " << top.score << endl;
+		count--;
 	}
 
 
