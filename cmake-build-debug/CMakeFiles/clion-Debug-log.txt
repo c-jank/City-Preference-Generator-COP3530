@@ -8,6 +8,6 @@ CMake Deprecation Warning:
   use the cmake-file-api(7) to view CMake-generated project build trees.
 
 
--- Configuring done (2.3s)
--- Generating done (0.6s)
+-- Configuring done (2.5s)
+-- Generating done (0.5s)
 -- Build files have been written to: C:/Users/Cole/CLionProjects/City-Preference-Generator-COP3530/cmake-build-debug
