@@ -8,7 +8,6 @@
 #include "DataSource.h"
 #include "data_src/City.h"
 #include <cmath>
-
 #include "maxHeap.h"
 using namespace std;
 using namespace bridges;
@@ -48,15 +47,15 @@ double calcScore(const cityData& city, const string& state, int minPop, int maxP
 	return score;
 }
 
-
+/*
 int main(int argc, char **argv) {
 	// create bridges object
-	Bridges bridges (3, "c-jankk", "199217990495");
+	Bridges bridges (3, "c-jankk", "708194223238");
 	bridges.setTitle("City Preference Generator");
 	DataSource ds (&bridges);
 
 	// create preferences object with inputted user preferences (just example preferences until we incorporate the UI)
-	userPreferences preferences(100000, 1000000, 100, 400, "IL", 25, 5, 4, 3);
+	userPreferences preferences(0, 200000, -1000, 100, "FL", 5, 5, 1, 5);
 
 	// set the city params to search for cities inside the min/max populations and elevations
 	unordered_map<string, string> city_params {
@@ -97,3 +96,4 @@ int main(int argc, char **argv) {
 
 	return 0;
 }
+*/
