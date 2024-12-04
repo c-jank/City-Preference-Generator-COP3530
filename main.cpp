@@ -10,6 +10,7 @@
 #include <cmath>
 
 #include "maxHeap.h"
+#include "SplayTree.h"
 using namespace std;
 using namespace bridges;
 
@@ -76,24 +77,48 @@ int main(int argc, char **argv) {
 		cityObjects.push_back(cityData(c.getCity(), c.getState(), c.getPopulation(), c.getElevation()));
 	}
 
-	// create heap
-	maxHeap heap;
+    // choose a method to search with by entering 1 or 2, replace with UI elements later
+    int method;
+    cin >> method;
 
-	// for each city object in the cityObjects vector, calculate the city's score and add the city to the heap
-	for (cityData& c : cityObjects) {
-		c.score = calcScore(c, preferences.preferredState, preferences.minPopulation, preferences.maxPopulation, preferences.minAlt, preferences.maxAlt, preferences.popRank, preferences.altRank, preferences.stateRank);
-		heap.insert(c);
-	}
+    if (method == 1) { // do heap method
 
-	// print the cities in order using the pop function
-	cout << "cities ranked by priority: " << endl;
-	int count = preferences.resultCount;
-	while (!heap.empty() && count > 0) {
-		cityData top = heap.pop();
-		cout << top.name << ' ' << top.state << ' ' << top.population << " " << top.score << endl;
-		count--;
-	}
+        // create heap
+        maxHeap heap;
+
+        // for each city object in the cityObjects vector, calculate the city's score and add the city to the heap
+        for (cityData &c: cityObjects) {
+            c.score = calcScore(c, preferences.preferredState, preferences.minPopulation, preferences.maxPopulation,
+                                preferences.minAlt, preferences.maxAlt, preferences.popRank, preferences.altRank,
+                                preferences.stateRank);
+            heap.insert(c);
+        }
+
+        // print the cities in order using the pop function
+        cout << "cities ranked by priority: " << endl;
+        int count = preferences.resultCount;
+        while (!heap.empty() && count > 0) {
+            cityData top = heap.pop();
+            cout << top.name << ' ' << top.state << ' ' << top.population << " " << top.score << endl;
+            count--;
+        }
 
 
-	return 0;
+        return 0;
+    }
+
+    if (method == 2) { // do splay tree method
+        SplayTree tree;
+
+        for (cityData &c: cityObjects) { // insert tree elements
+            c.score = calcScore(c, preferences.preferredState, preferences.minPopulation, preferences.maxPopulation,
+                                preferences.minAlt, preferences.maxAlt, preferences.popRank, preferences.altRank,
+                                preferences.stateRank);
+            tree.root = tree.Insert(tree.root, c);
+        }
+        tree.SetResults(preferences.resultCount);
+        tree.PrintNames(tree.root);
+
+    }
+    return 0;
 }

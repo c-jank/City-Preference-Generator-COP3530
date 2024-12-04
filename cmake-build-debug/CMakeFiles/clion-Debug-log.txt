@@ -1,6 +1,25 @@
-"C:\Users\hk498\AppData\Local\JetBrains\CLion 2022.3.3\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" -S C:\Users\hk498\OneDrive\Desktop\City-Preference-Generator-COP3530 -B C:\Users\hk498\OneDrive\Desktop\City-Preference-Generator-COP3530\cmake-build-debug
-CMake Error at CMakeLists.txt:1 (cmake_minimum_required):
-  CMake 3.28 or higher is required.  You are running version 3.24.2
+"C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" -S C:\Users\hk498\OneDrive\Desktop\City-Preference-Generator-COP3530 -B C:\Users\hk498\OneDrive\Desktop\City-Preference-Generator-COP3530\cmake-build-debug
+CMake Deprecation Warning:
+  Support for "Extra Generators" like
+
+    CodeBlocks
+
+  is deprecated and will be removed from a future version of CMake.  IDEs may
+  use the cmake-file-api(7) to view CMake-generated project build trees.
 
 
--- Configuring incomplete, errors occurred!
+-- The C compiler identification is GNU 11.2.0
+-- The CXX compiler identification is GNU 11.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: C:/Users/hk498/AppData/Local/JetBrains/CLion 2022.3.3/bin/mingw/bin/gcc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: C:/Users/hk498/AppData/Local/JetBrains/CLion 2022.3.3/bin/mingw/bin/g++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (2.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: C:/Users/hk498/OneDrive/Desktop/City-Preference-Generator-COP3530/cmake-build-debug

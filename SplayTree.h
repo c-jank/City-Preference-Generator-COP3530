@@ -1,22 +1,32 @@
 #include <iostream>
 #include <vector>
+#include "maxHeap.h"
+#pragma once
 
 using namespace std;
 
 class SplayTree {
     struct Node {
-        int score;
+        string name;
+        string state;
+        int population;
+        double altitude;
+        double score;
         Node *left, *right;
 
-        Node(int key) {
+        Node(cityData c) {
             left = nullptr;
             right = nullptr;
-            score = key;
+            name = c.name;
+            state = c.state;
+            population = c.population;
+            altitude = c.altitude;
+            score = c.score;
         }
     };
 
-    Node *NewNode(int score) {
-        Node *node = new Node(score);
+    Node *NewNode(cityData c) {
+        Node *node = new Node(c);
         return node;
     }
 
@@ -34,7 +44,7 @@ class SplayTree {
         return replacement;
     }
 
-    Node* Splay(Node* root, int score) {
+    Node* Splay(Node* root, double score) {
         if (root == nullptr) {
             return root;
         }
@@ -69,41 +79,67 @@ class SplayTree {
         }
     }
 public:
-    Node* Insert(Node* root, int score) {
+    Node* Insert(Node* root, cityData c) {
         if (root == nullptr) {
-            return NewNode(score);
+            return NewNode(c);
         }
-        root = Splay(root, score);
-        Node* new_node = NewNode(score);
-        Node* node = NewNode(score);
-        if (root->score < score) {
-            node->left = root;
-            node->right = root->right;
+        root = Splay(root, c.score);
+        Node* new_node = NewNode(c);
+        if (root->score < c.score) {
+            new_node->left = root;
+            new_node->right = root->right;
             root->right = nullptr;
         }
         else {
-            node->right = root;
-            node->left = root->left;
+            new_node->right = root;
+            new_node->left = root->left;
             root->left = nullptr;
         }
-        return node;
+        return new_node;
     }
 
-    vector<Node*> PreOrderHelper(Node* root, vector<Node*> nodes, int results) {
+    // currently obsolete print functions that I was using before but am no longer. Don't want to delete yet just in case
+
+/*     vector<Node*> PreOrderHelper(Node* root, vector<Node*> nodes, int results) {
         if (root != nullptr && nodes.size() < results) {
+            if (root->right != nullptr) {
+                PreOrderHelper(root->right, nodes, results);
+            }
+            if (root->left != nullptr) {
+                PreOrderHelper(root->left, nodes, results);
+            }
             nodes.push_back(root);
-            PreOrderHelper(root->left, nodes, results);
-            PreOrderHelper(root->right, nodes, results);
         }
         return nodes;
-    }
+    } */
 
-    vector<Node*> PreOrder(int results) {
+/*     void PreOrder(int results) {
         vector<Node*> nodes;
         nodes = PreOrderHelper(this->root, nodes, results);
+        for (unsigned long int i = 0; i < nodes.size(); i++) {
+            cout << nodes[i]->name << ' ' << nodes[i]->state << ' ' << nodes[i]->population << " " << nodes[i]->score << endl;
+        }
+        cout << endl;
+    } */
+
+    void PrintNames(Node* node) {
+        if (node != nullptr && size > 0) {
+            PrintNames(node->right);
+            if (size > 0) {
+                size -= 1;
+                cout << node->name << " " << node->state << " " << node->population << " " << node->score << endl;
+            }
+            PrintNames(node->left);
+        }
     }
+
     Node* root;
+    int size;
     SplayTree() {
         root = nullptr;
+        size = 0;
+    }
+    void SetResults(int results) {
+        size = results;
     }
 };
