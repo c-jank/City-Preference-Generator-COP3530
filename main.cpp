@@ -49,7 +49,7 @@ double calcScore(const cityData& city, const string& state, int minPop, int maxP
 	return score;
 }
 
-/*
+
 int main(int argc, char **argv) {
 	// create bridges object
 	Bridges bridges (3, "c-jankk", "199217990495");
@@ -122,4 +122,3 @@ int main(int argc, char **argv) {
     }
     return 0;
 }
-*/
