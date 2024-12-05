@@ -32,24 +32,8 @@ struct userPreferences {
 
 
 // function to calculate a city's "score" based on the user's preferences and priority rankings
-double calcScore(const cityData& city, const string& state, int minPop, int maxPop, int minAlt, int maxAlt, int popR, int altR, int stateR) {
 
-	double score = 0;
-
-	double popWeight = static_cast<double>(city.population - minPop) / (maxPop - minPop);
-	score += popWeight * popR;
-
-	double altWeight = static_cast<double>(city.altitude - minAlt) / (maxAlt - minAlt);
-	score += altWeight * altR;
-
-	if (city.state == state) {
-		score += stateR;
-	}
-
-	return score;
-}
-
-
+/*
 int main(int argc, char **argv) {
 	// create bridges object
 	Bridges bridges (3, "c-jankk", "199217990495");
@@ -122,3 +106,4 @@ int main(int argc, char **argv) {
     }
     return 0;
 }
+*/

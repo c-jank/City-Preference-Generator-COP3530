@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "maxHeap.h"
+#include <SFML/graphics.hpp>
 #pragma once
 
 using namespace std;
