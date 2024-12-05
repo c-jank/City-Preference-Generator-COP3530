@@ -2626,7 +2626,7 @@ curl_formfree(struct curl_httppost *form);
  * DESCRIPTION
  *
  * Returns a malloc()'ed string that MUST be curl_free()ed after usage is
- * complete. DEPRECATED - see lib/README.curlx
+ * complete. DEPRECATED - see lib/README.txt.curlx
  */
 CURL_EXTERN char *curl_getenv(const char *variable);
 

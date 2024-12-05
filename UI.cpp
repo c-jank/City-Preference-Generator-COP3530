@@ -418,9 +418,9 @@ int main(int argc, char **argv) {
                         statep = RemoveCursor(statep);
                         elvp = RemoveCursor(elvp);
                         rescntstr = RemoveCursor(rescntstr);
-                        resultbox.setTextureRect(sf::IntRect(0, 0, 600, 400));
+                        resultbox.setTextureRect(sf::IntRect(0, 0, 700, 400));
                         resultbox.setTexture(texture);
-                        resultbox.setPosition(200, 550);
+                        resultbox.setPosition(110, 550);
                         //PLACE HEAP HERE: Inputs(strings): popminstr, popmaxstr, elvminstr, elvmaxstr, statestr, Priorities: popp, statep, elvp
                         //Use this loop to write results
                         unordered_map<string, string> city_params {
@@ -462,9 +462,9 @@ int main(int argc, char **argv) {
                         statep = RemoveCursor(statep);
                         elvp = RemoveCursor(elvp);
                         rescntstr = RemoveCursor(rescntstr);
-                        resultbox.setTextureRect(sf::IntRect(0, 0, 600, 400));
+                        resultbox.setTextureRect(sf::IntRect(0, 0, 700, 400));
                         resultbox.setTexture(texture);
-                        resultbox.setPosition(200, 550);
+                        resultbox.setPosition(100, 550);
                         //PLACE TREE HERE: Inputs(strings): popminstr, popmaxstr, elvminstr, elvmaxstr, statestr, Priorities: popp, statep, elvp
                         //Use this loop to write results
                         unordered_map<string, string> city_params {
@@ -622,7 +622,7 @@ int main(int argc, char **argv) {
             results.setFont(font);
             results.setFillColor(sf::Color::Black);
             results.setCharacterSize(20);
-            results.setPosition(210,550);
+            results.setPosition(120,550);
 
             rescnttxt.setString(rescntstr);
             rescnttxt.setFont(font);
