@@ -12,7 +12,6 @@ link_directories({CMAKE_CURRENT_SOURCE_DIR}/../libraries/curl/lib)
 add_executable(City-Preference-Generator-COP3530 main.cpp
         maxHeap.h
         maxHeap.cpp
-        UI.cpp
         SplayTree.h)
 target_link_libraries(City-Preference-Generator-COP3530 libcurl.lib sfml-system sfml-window sfml-graphics sfml-audio)
 
