@@ -71,12 +71,13 @@ int main(int argc, char **argv) {
     sf::Text ppop;
     sf::Text pstate;
     sf::Text pelv;
-    sf::Text poppr;
+    sf::Text popr;
     sf::Text statepr;
     sf::Text elvpr;
     sf::Text results;
     sf::Text rescount;
     sf::Text rescnttxt;
+    sf::Text resettxt;
     sf::Font font;
     font.loadFromFile("font.ttf");
 
@@ -153,7 +154,15 @@ int main(int argc, char **argv) {
     pelvbox.setTexture(texture);
     pelvbox.setPosition(800, 390);
 
+    sf::Sprite reset;
+    reset.setTextureRect(sf::IntRect(0, 0, 100, 50));
+    reset.setTexture(texture);
+    reset.setPosition(800, 750);
+
+
     sf::Sprite resultbox;
+
+
 
     sf::Vector2i mpos;
 
@@ -484,6 +493,9 @@ int main(int argc, char **argv) {
                             reslist += to_string(i)+".\n";
                         }
                     }
+                    if(reset.getGlobalBounds().contains(window.mapPixelToCoords(mpos))) {
+                        reslist.erase();
+                    }
             }
             //Text setup
             title.setString("City Preference Generator");
@@ -588,11 +600,11 @@ int main(int argc, char **argv) {
             pelv.setCharacterSize(24);
             pelv.setPosition(670, 400);
 
-            poppr.setString(popp);
-            poppr.setFont(font);
-            poppr.setFillColor(sf::Color::Black);
-            poppr.setCharacterSize(24);
-            poppr.setPosition(810, 200);
+            popr.setString(popp);
+            popr.setFont(font);
+            popr.setFillColor(sf::Color::Black);
+            popr.setCharacterSize(24);
+            popr.setPosition(810, 200);
 
             statepr.setString(statep);
             statepr.setFont(font);
@@ -618,6 +630,11 @@ int main(int argc, char **argv) {
             rescnttxt.setCharacterSize(24);
             rescnttxt.setPosition(390,100);
 
+            resettxt.setString("Reset");
+            resettxt.setFont(font);
+            resettxt.setFillColor(sf::Color::Black);
+            resettxt.setCharacterSize(24);
+            resettxt.setPosition(810, 750);
             //Draw Everything
             window.clear();
             window.draw(title);
@@ -647,13 +664,15 @@ int main(int argc, char **argv) {
             window.draw(ppopbox);
             window.draw(pstatebox);
             window.draw(pelvbox);
-            window.draw(poppr);
+            window.draw(popr);
             window.draw(statepr);
             window.draw(elvpr);
             window.draw(results);
             window.draw(rescount);
             window.draw(numres);
             window.draw(rescnttxt);
+            window.draw(reset);
+            window.draw(resettxt);
             window.display();
         }
     }
